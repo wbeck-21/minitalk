@@ -6,7 +6,7 @@
 /*   By: wbeck <wbeck@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:31:57 by wbeck             #+#    #+#             */
-/*   Updated: 2022/07/05 15:45:35 by wbeck            ###   ########.fr       */
+/*   Updated: 2022/07/05 20:38:06 by wbeck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
+	unsigned int	i;
 
 	if (!s)
 		return ;
@@ -24,6 +24,7 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, &s[i], 1);
 		i++;
 	}
+	write(fd, "\n", 1);
 }
 
 int	ft_atoi(const char *str)

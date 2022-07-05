@@ -6,7 +6,7 @@
 /*   By: wbeck <wbeck@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 10:16:09 by wbeck             #+#    #+#             */
-/*   Updated: 2022/07/05 16:18:12 by wbeck            ###   ########.fr       */
+/*   Updated: 2022/07/05 20:58:37 by wbeck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,14 @@ void	put_pid(void)
 
 static void	handler_msg(int sig)
 {
-	t_msg_char	chr;
+	static t_msg_char	chr = {0, 0};
 
-	chr.c = 0;
-	chr.bit = 0;
 	if (sig == SIGUSR2)
 		chr.c |= 1 << chr.bit;
 	chr.bit++;
 	if (chr.bit == 8)
 	{
-		write(1, &chr.c, 1);
+		write (1, &chr.c, 1);
 		chr.c = 0;
 		chr.bit = 0;
 	}

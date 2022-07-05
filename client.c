@@ -6,7 +6,7 @@
 /*   By: wbeck <wbeck@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 10:16:12 by wbeck             #+#    #+#             */
-/*   Updated: 2022/07/05 15:47:35 by wbeck            ###   ########.fr       */
+/*   Updated: 2022/07/05 20:37:12 by wbeck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	get_char(char c, int pid)
 {
 	int	bit;
 
-	bit = 0;
+	bit = -1;
 	while (++bit < 8)
 	{
 		if (c & (1 << bit))
@@ -31,7 +31,7 @@ void	send_msg(t_client_args *client_args)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	while (client_args->msg[++i])
 		get_char(client_args->msg[i], client_args->pid);
 }
@@ -40,7 +40,7 @@ int	check_argv(char *argv)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	while (argv[++i])
 		if (argv[i] < '0' && argv[i] > '9')
 			return (0);
