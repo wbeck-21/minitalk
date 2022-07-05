@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.h                                           :+:      :+:    :+:   */
+/*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wbeck <wbeck@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 10:20:37 by wbeck             #+#    #+#             */
-/*   Updated: 2022/07/05 20:38:10 by wbeck            ###   ########.fr       */
+/*   Created: 2022/07/05 11:30:49 by wbeck             #+#    #+#             */
+/*   Updated: 2022/07/05 22:20:52 by wbeck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLIENT_H
-# define CLIENT_H
+#ifndef SERVER_H
+# define SERVER_H
 
 # include <signal.h>
 # include <unistd.h>
+# include <stdbool.h>
 # include <stdlib.h>
+# include "../libft/libft.h"
 
-typedef struct s_client_args{
-	int		pid;
-	char	*msg;
-}	t_client_args;
+typedef struct s_msg_char
+{
+	char	c;
+	int		bit;
+}	t_msg_char;
 
-void	ft_putstr_fd(char *s, int fd);
-int		ft_atoi(const char *str);
-
-#endif 
+#endif
