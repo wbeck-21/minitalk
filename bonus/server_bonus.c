@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wbeck <wbeck@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 10:16:09 by wbeck             #+#    #+#             */
-/*   Updated: 2022/07/07 18:51:41 by wbeck            ###   ########.fr       */
+/*   Updated: 2022/07/07 19:04:27 by wbeck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/server.h"
+#include "../include/server_bonus.h"
 
 void	put_pid(void)
 {
@@ -27,10 +27,11 @@ void	put_pid(void)
 	ft_putstr_fd(pid_str, 1);
 }
 
-static void	handler_msg(int sig)
+static void	handler_msg(int sig, siginfo_t *info, void *context)
 {
 	static t_msg_char	chr = {0, 0};
 
+	(void)context;
 	if (sig == SIGUSR2)
 		chr.c |= 1 << chr.bit;
 	chr.bit++;
@@ -40,6 +41,7 @@ static void	handler_msg(int sig)
 		chr.c = 0;
 		chr.bit = 0;
 	}
+	kill(info->si_pid, SIGUSR1);
 }
 
 static void	handler_exit(int sig)
@@ -50,10 +52,16 @@ static void	handler_exit(int sig)
 
 int	main(void)
 {
+	struct sigaction	act;
+
 	put_pid();
 	write(1, "\n", 1);
-	signal(SIGUSR2, handler_msg);
-	signal(SIGUSR1, handler_msg);
+	act.sa_handler = SIG_DFL;
+	act.sa_sigaction = handler_msg;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGUSR2, &act, NULL);
 	signal(SIGINT, handler_exit);
 	signal(SIGTERM, handler_exit);
 	while (1)

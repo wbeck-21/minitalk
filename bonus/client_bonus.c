@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wbeck <wbeck@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 10:16:12 by wbeck             #+#    #+#             */
-/*   Updated: 2022/07/07 12:52:05 by wbeck            ###   ########.fr       */
+/*   Updated: 2022/07/07 19:36:15 by wbeck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/client.h"
+#include "../include/client_bonus.h"
 
 void	get_char(char c, int pid)
 {
@@ -47,10 +47,17 @@ int	check_argv(char *argv)
 	return (1);
 }
 
+static void	know_handler(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("\nMessage successfully sent...", 1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_client_args	client_args;
 
+	signal(SIGUSR1, know_handler);
 	if (argc == 3 && check_argv(argv[1]))
 	{
 		client_args.pid = ft_atoi(argv[1]);
